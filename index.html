@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kinga & David – 26. September 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -36,6 +36,7 @@
     justify-content: center;
     position: relative;
     overflow: hidden;
+    overflow-x: clip;
   }
 
   .hero::before {
@@ -46,9 +47,9 @@
   }
 
   .hero-date {
-    font-family: 'Great Vibes', cursive;
+    font-family: 'Pinyon Script', cursive;
     font-style: normal;
-    font-size: 22vw;
+    font-size: 34.3vw;
     color: var(--gold);
     writing-mode: vertical-rl;
     position: absolute;
@@ -58,12 +59,18 @@
     opacity: 0.85;
     line-height: 0.9;
     white-space: nowrap;
+    overflow: visible;
+    z-index: 0;
   }
 
   .hero-content {
     text-align: center;
     padding: 2rem 2rem 2rem clamp(180px, 32vw, 380px);
     animation: fadeInUp 1.2s ease forwards;
+    position: absolute;
+    bottom: 8%;
+    left: 0;
+    right: 0;
   }
 
   .hero-names {
@@ -83,7 +90,7 @@
   }
 
   .hero-und {
-    font-family: 'Great Vibes', cursive;
+    font-family: 'Pinyon Script', cursive;
     font-style: normal;
     font-weight: 400;
     font-size: clamp(2rem, 5vw, 3.2rem);
@@ -92,11 +99,15 @@
 
   .hero-tagline {
     margin-top: 2rem;
-    font-size: clamp(0.65rem, 1.5vw, 0.8rem);
-    letter-spacing: 0.25em;
+    font-size: clamp(0.6rem, 1.6vw, 0.85rem);
+    letter-spacing: 0.15em;
     text-transform: uppercase;
     color: rgba(255,255,255,0.7);
     font-weight: 400;
+    text-align: right;
+    display: block;
+    white-space: nowrap;
+    line-height: 1.8;
   }
 
   .hero-scroll {
@@ -139,7 +150,7 @@
   }
 
   .section-label {
-    font-family: 'Great Vibes', cursive;
+    font-family: 'Pinyon Script', cursive;
     font-style: normal;
     font-size: clamp(2.5rem, 6vw, 4rem);
     color: var(--slate);
@@ -409,7 +420,7 @@
 
   @media (max-width: 480px) {
     .form-row { grid-template-columns: 1fr; }
-    .hero-date { font-size: 3rem; left: 10px; }
+    .hero-date { font-size: 34.3vw; left: 5px; }
   }
 
   .lock-deco {
@@ -432,23 +443,42 @@
     z-index: 1;
   }
 </style>
+<meta property="og:title" content="Kinga &amp; David – 26. September 2026">
+<meta property="og:description" content="Zwei Herzen – Ein &quot;Ja&quot; – und eine Party, die wir mit euch feiern wollen!">
+<meta property="og:image" content="https://davidliedmann.github.io/Kinga_und_David/preview.jpg">
+<meta property="og:url" content="https://davidliedmann.github.io/Kinga_und_David/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#b8976a">
 </head>
 <body>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-date">26. September 2026</div>
+  <div class="hero-date">Einladung</div>
   <div class="hero-content">
     <div class="hero-names">
       <div class="hero-name">KINGA</div>
       <div class="hero-und">und</div>
       <div class="hero-name">DAVID</div>
     </div>
-    <p class="hero-tagline">Zwei Herzen &mdash; Ein &ldquo;Ja&rdquo; &mdash; Eine Party</p>
+    <p class="hero-tagline">Zwei Herzen &ndash; Ein &ldquo;Ja&rdquo;<br>und eine Party, die wir mit<br>Euch feiern wollen!</p>
   </div>
   <div class="hero-scroll">Scroll</div>
 </section>
 
+
+<!-- EINLADUNGSTEXT -->
+<section style="min-height:100vh; background:var(--cream); display:flex; align-items:center; justify-content:center; padding: 4rem 2rem;">
+  <div style="max-width:600px; text-align:center;">
+    <h2 style="font-family:'Pinyon Script',cursive; font-size:clamp(3rem,10vw,5rem); color:var(--gold); margin-bottom:2rem; line-height:1.1;">Wir sagen Ja!</h2>
+    <p style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.1rem,3vw,1.4rem); color:var(--dark); line-height:1.9; margin-bottom:2.5rem;">
+      Zu unserer Hochzeitsfeier am 26. September 2026 in Rennertehausen laden wir euch herzlich ein.<br><br>
+      Wir lieben Kinder! An diesem Tag jedoch sind sie am besten in der Obhut eines Babysitters aufgehoben. Wir bitten um euer Verst&auml;ndnis.<br><br>
+      Wir freuen uns sehr auf den Abend mit euch!
+    </p>
+    <p style="font-family:'Pinyon Script',cursive; font-size:clamp(3.75rem,12vw,6rem); color:var(--dark); line-height:1.2;">Kinga + David</p>
+  </div>
+</section>
 <!-- FOTO -->
 <section class="photo-section">
   <p class="section-label">Wir freuen uns auf euch!</p>
@@ -499,24 +529,29 @@
   <div class="rsvp-form" id="rsvpForm">
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Vorname</label>
+        <label class="form-label">1. Vorname</label>
         <input type="text" class="form-input" id="fname" placeholder="Vorname">
       </div>
       <div class="form-group">
-        <label class="form-label">Nachname</label>
+        <label class="form-label">1. Nachname</label>
         <input type="text" class="form-input" id="lname" placeholder="Nachname">
       </div>
     </div>
 
     <div class="form-row">
       <div class="form-group">
-        <label class="form-label">Vorname Begleitperson (optional)</label>
+        <label class="form-label">2. Vorname (optional)</label>
         <input type="text" class="form-input" id="companion_fname" placeholder="Vorname">
       </div>
       <div class="form-group">
-        <label class="form-label">Nachname Begleitperson (optional)</label>
+        <label class="form-label">2. Nachname (optional)</label>
         <input type="text" class="form-input" id="companion_lname" placeholder="Nachname">
       </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Handynummer zur Authentication</label>
+      <input type="tel" class="form-input" id="phone" placeholder="+49 …">
     </div>
 
     <div class="form-group">
@@ -552,63 +587,19 @@
     <div class="info-card">
       <div class="info-card-label">Location</div>
       <div class="info-card-content">
-        DGH Rennertehausen<br>
-        Hauptstrasse 16<br>
-        35108 Allendorf Eder
+        <a href="https://www.google.com/maps/search/?api=1&query=DGH+Rennertehausen+Hauptstrasse+16+35108+Allendorf+Eder" target="_blank" style="color:inherit;text-decoration:none;">
+          DGH Rennertehausen<br>
+          Hauptstrasse 16<br>
+          35108 Allendorf Eder
+        </a>
       </div>
     </div>
     <div class="info-card">
       <div class="info-card-label">Dresscode</div>
       <div class="info-card-content">Schick</div>
     </div>
-    <div class="info-card" style="grid-column: 1 / -1;">
-      <div class="info-card-label">Übernachtungsmöglichkeiten — sortiert nach Entfernung</div>
-      <div class="info-card-content" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.4rem; margin-top: 0.5rem;">
-
-        <div>
-          <div style="color:var(--gold-light);font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;">~1 Min. · Rennertehausen</div>
-          <strong>AE Hotel</strong><br>
-          Im Ried 15<br>
-          35108 Allendorf (Eder)<br>
-          <a href="https://ae-hotel.de" target="_blank">ae-hotel.de</a>
-        </div>
-
-        <div>
-          <div style="color:var(--gold-light);font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;">~5 Min. · Allendorf</div>
-          <strong>Unterkunft Allendorf Eder</strong><br>
-          Braustadtstraße 10<br>
-          35108 Allendorf (Eder)<br>
-          Gästehaus mit Küche &amp; Balkon
-        </div>
-
-        <div>
-          <div style="color:var(--gold-light);font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;">~8 Min. · Battenberg</div>
-          <strong>Hotel Sassor</strong><br>
-          Berliner Str. 17<br>
-          35088 Battenberg-Dodenau<br>
-          <a href="https://hotel-sassor.de" target="_blank">hotel-sassor.de</a>
-        </div>
-
-        <div>
-          <div style="color:var(--gold-light);font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;">~11 Min. · Frankenberg</div>
-          <strong>Pension Ederstrand</strong><br>
-          Siegener Str. 56<br>
-          35066 Frankenberg (Eder)<br>
-          <a href="https://pension-ederstrand.de" target="_blank">pension-ederstrand.de</a>
-        </div>
-
-        <div>
-          <div style="color:var(--gold-light);font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.3rem;">~11 Min. · Frankenberg</div>
-          <strong>Hotel Die Sonne Frankenberg</strong><br>
-          Marktplatz 2–4<br>
-          35066 Frankenberg (Eder)<br>
-          <a href="https://sonne-frankenberg.de" target="_blank">sonne-frankenberg.de</a>
-        </div>
-
-      </div>
-    </div>
     <div class="info-card">
-      <div class="info-card-label">Trauzeugen</div>
+      <div class="info-card-label">Unsere Trauzeugen – Eure Ansprechpartner</div>
       <div class="info-card-content">
         Tatjana Martel<br>
         0170 2297952<br><br>
@@ -628,8 +619,21 @@
         Unser Hausstand ist komplett. Wollt ihr uns eine Freude machen, lasst doch unser Sparschwein lachen. 🐷
       </div>
     </div>
+
+    <div class="info-card" style="grid-column: 1 / -1;">
+      <div class="info-card-label">Übernachtungsmöglichkeit</div>
+      <div class="info-card-content">
+        <strong>AE Hotel</strong><br>
+        Im Ried 15<br>
+        35108 Allendorf (Eder)<br>
+        <a href="https://ae-hotel.de" target="_blank">ae-hotel.de</a>
+      </div>
+    </div>
+  </div>
   </div>
 </section>
+
+
 
 <!-- FOOTER -->
 <footer>
@@ -650,27 +654,47 @@
   function submitRSVP() {
     const fname = document.getElementById('fname').value.trim();
     const lname = document.getElementById('lname').value.trim();
+    const phone = document.getElementById('phone').value.trim();
     const attending = document.querySelector('input[name="attending"]:checked');
 
-    if (!fname || !lname) { alert('Bitte Namen eingeben.'); return; }
+    if (!fname || !lname) { alert('Bitte 1. Vorname und 1. Nachname eingeben.'); return; }
+    if (!phone) { alert('Bitte Handynummer eingeben.'); return; }
     if (!attending) { alert('Bitte Zu- oder Absage auswählen.'); return; }
 
-    // Google Forms submission (replace ACTION_URL with your Google Form action URL)
-    const ACTION_URL = 'YOUR_GOOGLE_FORM_ACTION_URL';
-    const companion = (document.getElementById('companion_fname').value.trim() + ' ' + document.getElementById('companion_lname').value.trim()).trim();
-    const message = document.getElementById('message').value;
+    const companion_fname = document.getElementById('companion_fname').value.trim();
+    const companion_lname = document.getElementById('companion_lname').value.trim();
+    const message = document.getElementById('message').value.trim();
+    const attendingText = attending.value === 'yes' ? 'Wir kommen!' : 'Wir kommen leider nicht.';
 
-    // For now: show success message
+    // Korrekte entry-IDs aus dem Google-Formular-Quelltext:
+    // entry.1612616459 → 1. Vorname
+    // entry.1098433538 → 1. Nachname
+    // entry.1763955451 → Handynummer zur Authentication
+    // entry.679795412  → 2. Vorname (optional)
+    // entry.1521732201 → 2. Nachname (optional)
+    // entry.1961305574 → Werdet ihr dabei sein?
+    // entry.1122070835 → Nachricht (optional)
+
+    // Daten als URL-Parameter senden (funktioniert zuverlässig mit no-cors)
+    const params = new URLSearchParams({
+      fname,
+      lname,
+      companion_fname,
+      companion_lname,
+      phone,
+      attending: attendingText,
+      message
+    });
+    const scriptUrl = 'https://script.google.com/macros/s/AKfycbxpVl9tyJZnIi9Eh_4hfrffyEbyRlUJYlAgkI9m-wmQNMQp3ShcqMpCtH6hmHPDt3kVkA/exec';
+
+    fetch(scriptUrl + '?' + params.toString(), {
+      method: 'GET',
+      mode: 'no-cors'
+    });
+
+    // Erfolgsmeldung anzeigen
     document.getElementById('rsvpForm').style.display = 'none';
     document.getElementById('successMsg').style.display = 'block';
-
-    // Optionally send to Google Forms via fetch:
-    // const formData = new FormData();
-    // formData.append('entry.XXXXXXXXX', fname + ' ' + lname);
-    // formData.append('entry.XXXXXXXXX', attending.value);
-    // formData.append('entry.XXXXXXXXX', companion);
-    // formData.append('entry.XXXXXXXXX', message);
-    // fetch(ACTION_URL, { method: 'POST', mode: 'no-cors', body: formData });
   }
 </script>
 
