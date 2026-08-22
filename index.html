@@ -504,8 +504,8 @@
     </div>
     <div class="timeline-item">
       <div>
-        <div class="timeline-title">Im Anschluss</div>
-        <div class="timeline-desc"> Kuchenbuffet</div>
+        <div class="timeline-title">ab 16 Uhr</div>
+        <div class="timeline-desc">Kaffee &amp; Kuchen</div>
       </div>
     </div>
 
@@ -655,6 +655,428 @@
   </div>
 </section>
 
+
+
+
+
+<!-- ANREISE -->
+<!-- Anreise-Widget: Route (mit Schnell-/Entspannt-Variante ab Bochum-Harpen, oder eigener Startpunkt) + Blitzer-Hinweise.
+     Einfach diesen gesamten Block in die Einladungsseite einfügen. Enthält etwas JavaScript für die
+     Startpunkt-Auswahl — falls euer Einladungs-Tool <script>-Tags entfernt, bleibt die Standardroute
+     (Bochum-Harpen, schnellste Strecke) trotzdem sichtbar, nur die Umschalter funktionieren dann nicht. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,600&family=Karla:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  .rh-anreise, .rh-anreise * { box-sizing: border-box; }
+
+  .rh-anreise {
+    --paper: #faf6ee;
+    --paper-raised: #ffffff;
+    --ink: #3a332b;
+    --ink-soft: #7c7062;
+    --line: #e6dcc8;
+    --gold: #b8976a;
+    --gold-soft: #ddc9a3;
+    --rose: #b8976a;
+    --rose-deep: #8a6c45;
+    --shadow: 0 14px 32px -20px rgba(58, 51, 43, 0.3);
+
+    max-width: 640px;
+    margin: 2rem auto;
+    padding: clamp(1.5rem, 5vw, 2.5rem);
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: 18px;
+    font-family: "Karla", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .rh-anreise .rh-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin: 0 0 0.8rem;
+  }
+
+  .rh-anreise h2 {
+    font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+    font-weight: 600;
+    font-size: clamp(1.7rem, 4.5vw, 2.3rem);
+    line-height: 1.2;
+    letter-spacing: 0;
+    margin: 0 0 0.7rem;
+  }
+
+  .rh-anreise h2 em {
+    font-style: italic;
+    color: var(--rose-deep);
+  }
+
+  .rh-anreise .rh-lede {
+    font-size: 1rem;
+    color: var(--ink-soft);
+    max-width: 52ch;
+    margin: 0 0 1rem;
+  }
+
+  .rh-anreise .rh-note {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    background: var(--paper-raised);
+    border-left: 3px solid var(--gold-soft);
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    margin: 0 0 1.5rem;
+  }
+
+  .rh-anreise .rh-note strong {
+    color: var(--ink);
+  }
+
+  .rh-anreise .rh-start-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .rh-anreise .rh-start-btn {
+    font-family: inherit;
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .rh-anreise .rh-start-btn:hover {
+    border-color: var(--gold-soft);
+    color: var(--ink);
+  }
+
+  .rh-anreise .rh-start-btn[aria-pressed="true"] {
+    background: var(--rose);
+    border-color: var(--rose);
+    color: #fff8f4;
+  }
+
+  .rh-anreise .rh-custom-row {
+    display: none;
+    gap: 0.5rem;
+    margin: 0 0 1rem;
+  }
+
+  .rh-anreise .rh-custom-row.rh-visible {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .rh-anreise .rh-custom-row input[type="text"] {
+    flex: 1 1 220px;
+    font-family: inherit;
+    font-size: 0.92rem;
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--paper-raised);
+    color: var(--ink);
+  }
+
+  .rh-anreise .rh-custom-row button {
+    font-family: inherit;
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: #fff8f4;
+    background: var(--rose);
+    border: 1px solid var(--rose);
+    border-radius: 10px;
+    padding: 0.55rem 1.1rem;
+    cursor: pointer;
+  }
+
+  .rh-anreise .rh-custom-row button:hover {
+    background: var(--rose-deep);
+    border-color: var(--rose-deep);
+  }
+
+  .rh-anreise .rh-map {
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    background: var(--paper-raised);
+  }
+
+  .rh-anreise .rh-map iframe {
+    display: block;
+    width: 100%;
+    height: 400px;
+    border: 0;
+  }
+
+  .rh-anreise .rh-map-fallback {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0.6rem 0 0;
+  }
+
+  .rh-anreise .rh-map-fallback a {
+    font-size: 0.85rem;
+    color: var(--rose-deep);
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px solid transparent;
+  }
+
+  .rh-anreise .rh-map-fallback a:hover {
+    border-bottom-color: var(--rose-deep);
+  }
+
+  .rh-anreise .rh-divider {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 2.2rem 0 1.5rem;
+  }
+
+  .rh-anreise .rh-section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+  }
+
+  .rh-anreise .rh-blitzer-group + .rh-blitzer-group {
+    margin-top: 1.2rem;
+  }
+
+  .rh-anreise .rh-blitzer-group-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 0.6rem;
+  }
+
+  .rh-anreise .rh-blitzer-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .rh-anreise .rh-blitzer-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.92rem;
+  }
+
+  .rh-anreise .rh-blitzer-label {
+    display: flex;
+    align-items: baseline;
+    gap: 0.55rem;
+  }
+
+  .rh-anreise .rh-blitzer-label::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--rose);
+    flex: none;
+  }
+
+  .rh-anreise .rh-blitzer-list a {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--rose-deep);
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 1px solid transparent;
+  }
+
+  .rh-anreise .rh-blitzer-list a:hover {
+    border-bottom-color: var(--rose-deep);
+  }
+
+  .rh-anreise footer {
+    margin-top: 2rem;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+</style>
+
+<div class="rh-anreise">
+  <p class="rh-eyebrow">Anreise</p>
+  <h2>Der Weg zur <em>Hochzeitsfeier</em></h2>
+  <p class="rh-lede">
+    Zum Dorfgemeinschaftshaus, Hauptstraße&nbsp;16, 35108 Allendorf (Eder).
+  </p>
+
+  <p class="rh-note">
+    <strong>Tipp:</strong> Ab Bochum-Harpen gibt es zwei gute Optionen — die schnellste Strecke,
+    oder die Route über die <strong>A44 und die B252</strong>. Die ist zwar etwas länger, aber
+    deutlich entspannter zu fahren.
+  </p>
+
+  <div class="rh-start-picker" id="rhStartPicker" role="tablist" aria-label="Startpunkt wählen"></div>
+
+  <div class="rh-custom-row" id="rhCustomRow">
+    <input type="text" id="rhCustomInput" placeholder="Eure Adresse, z. B. Musterstraße 1, Musterstadt" />
+    <button type="button" id="rhCustomGo">Route anzeigen</button>
+  </div>
+
+  <div class="rh-map">
+    <iframe
+      id="rhMapFrame"
+      src="https://maps.google.com/maps?saddr=Bochum-Harpen%2C%2044805%20Bochum%2C%20Deutschland&daddr=Diemelstadt%2C%20Deutschland+to:DGH%20Rennertehausen%2C%20Hauptstra%C3%9Fe%2016%2C%2035108%20Allendorf%20(Eder)&output=embed"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      allowfullscreen
+    ></iframe>
+  </div>
+  <div class="rh-map-fallback">
+    <a id="rhMapFallback" href="https://www.google.com/maps/dir/?api=1&origin=Bochum-Harpen%2C%2044805%20Bochum%2C%20Deutschland&destination=DGH%20Rennertehausen%2C%20Hauptstra%C3%9Fe%2016%2C%2035108%20Allendorf%20(Eder)&waypoints=Diemelstadt%2C%20Deutschland&travelmode=driving" target="_blank" rel="noopener">In Google Maps öffnen ↗</a>
+  </div>
+
+  <hr class="rh-divider" />
+
+  <div class="rh-section-label">Blitzer auf der Strecke</div>
+
+  <div class="rh-blitzer-group">
+    <p class="rh-blitzer-group-title">Blitzer bei der Strecke über die A46:</p>
+    <ul class="rh-blitzer-list">
+      <li>
+        <span class="rh-blitzer-label">Dortmund · 51.49763, 7.45335</span>
+        <a href="https://www.google.com/maps/search/?api=1&query=51.497633,7.453352" target="_blank" rel="noopener">Auf Karte ansehen ↗</a>
+      </li>
+      <li>
+        <span class="rh-blitzer-label">Winterberg · 51.15540, 8.55921</span>
+        <a href="https://www.google.com/maps/search/?api=1&query=51.155400,8.559205" target="_blank" rel="noopener">Auf Karte ansehen ↗</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="rh-blitzer-group">
+    <p class="rh-blitzer-group-title">Blitzer bei der Strecke über die A44 &amp; B252:</p>
+    <ul class="rh-blitzer-list">
+      <li>
+        <span class="rh-blitzer-label">Dortmund · 51.49763, 7.45335</span>
+        <a href="https://www.google.com/maps/search/?api=1&query=51.497633,7.453352" target="_blank" rel="noopener">Auf Karte ansehen ↗</a>
+      </li>
+      <li>
+        <span class="rh-blitzer-label">Twistetal (Berndorf) · 51.30839, 8.90600</span>
+        <a href="https://www.google.com/maps/search/?api=1&query=51.30839,8.90600" target="_blank" rel="noopener">Auf Karte ansehen ↗</a>
+      </li>
+      <li>
+        <span class="rh-blitzer-label">Twistetal (Twiste) · 51.33678, 8.96642</span>
+        <a href="https://www.google.com/maps/search/?api=1&query=51.33678,8.96642" target="_blank" rel="noopener">Auf Karte ansehen ↗</a>
+      </li>
+      <li>
+        <span class="rh-blitzer-label">Vöhl · 51.18644, 8.89489</span>
+        <a href="https://www.google.com/maps/search/?api=1&query=51.18644,8.89489" target="_blank" rel="noopener">Auf Karte ansehen ↗</a>
+      </li>
+    </ul>
+  </div>
+
+  <footer>Gute Fahrt und bis bald! 🚗</footer>
+</div>
+
+<script>
+(function () {
+  var DEST = "DGH Rennertehausen, Hauptstraße 16, 35108 Allendorf (Eder)";
+  var BOCHUM = "Bochum-Harpen, 44805 Bochum, Deutschland";
+  var WAYPOINT = "Diemelstadt, Deutschland";
+
+  var picker = document.getElementById("rhStartPicker");
+  var customRow = document.getElementById("rhCustomRow");
+  var customInput = document.getElementById("rhCustomInput");
+  var customGo = document.getElementById("rhCustomGo");
+  var frame = document.getElementById("rhMapFrame");
+  var fallback = document.getElementById("rhMapFallback");
+
+  function embedUrl(origin, viaWaypoint) {
+    var daddr = viaWaypoint
+      ? encodeURIComponent(viaWaypoint) + "+to:" + encodeURIComponent(DEST)
+      : encodeURIComponent(DEST);
+    return "https://maps.google.com/maps?saddr=" + encodeURIComponent(origin) +
+      "&daddr=" + daddr + "&output=embed";
+  }
+
+  function dirUrl(origin, viaWaypoint) {
+    var url = "https://www.google.com/maps/dir/?api=1&origin=" + encodeURIComponent(origin) +
+      "&destination=" + encodeURIComponent(DEST) + "&travelmode=driving";
+    if (viaWaypoint) url += "&waypoints=" + encodeURIComponent(viaWaypoint);
+    return url;
+  }
+
+  function showRoute(origin, viaWaypoint) {
+    frame.src = embedUrl(origin, viaWaypoint);
+    fallback.href = dirUrl(origin, viaWaypoint);
+  }
+
+  var modes = [
+    { label: "Ab Bochum-Harpen · schnellste Strecke", custom: false, origin: BOCHUM, via: null },
+    { label: "Ab Bochum-Harpen · über A44 & B252", custom: false, origin: BOCHUM, via: WAYPOINT },
+    { label: "Eigener Startpunkt", custom: true }
+  ];
+
+  modes.forEach(function (mode, i) {
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "rh-start-btn";
+    btn.setAttribute("role", "tab");
+    btn.setAttribute("aria-pressed", "false");
+    btn.textContent = mode.label;
+    btn.addEventListener("click", function () {
+      Array.prototype.forEach.call(picker.querySelectorAll(".rh-start-btn"), function (b) {
+        b.setAttribute("aria-pressed", "false");
+      });
+      btn.setAttribute("aria-pressed", "true");
+
+      if (mode.custom) {
+        customRow.classList.add("rh-visible");
+        if (customInput.value.trim()) {
+          showRoute(customInput.value.trim(), null);
+        }
+      } else {
+        customRow.classList.remove("rh-visible");
+        showRoute(mode.origin, mode.via);
+      }
+    });
+    picker.appendChild(btn);
+    if (i === 1) btn.setAttribute("aria-pressed", "true");
+  });
+
+  function submitCustom() {
+    var val = customInput.value.trim();
+    if (val) showRoute(val, null);
+  }
+
+  customGo.addEventListener("click", submitCustom);
+  customInput.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      submitCustom();
+    }
+  });
+})();
+</script>
 
 
 <!-- FOOTER -->
