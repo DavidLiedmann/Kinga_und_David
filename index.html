@@ -504,8 +504,15 @@
     </div>
     <div class="timeline-item">
       <div>
-        <div class="timeline-title">Im Anschluss</div>
-        <div class="timeline-desc"> Kuchenbuffet</div>
+        <div class="timeline-title">Ab 16 Uhr</div>
+        <div class="timeline-desc">Torte &amp; Kaffee</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div>
+        <div class="timeline-title">Nach der Torte</div>
+        <div class="timeline-desc">Zeit für CHECK-IN, wenn es vorher nicht möglich ist</div>
       </div>
     </div>
 
@@ -656,6 +663,493 @@
 </section>
 
 
+<!-- ANREISE -->
+<style>
+  .rh-anreise, .rh-anreise * { box-sizing: border-box; }
+
+  .rh-anreise {
+    width: min(700px, 90vw);
+    color: var(--dark);
+    font-family: 'Raleway', sans-serif;
+    line-height: 1.6;
+  }
+
+  .rh-anreise .rh-lede {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    color: var(--slate);
+    text-align: center;
+    max-width: 55ch;
+    margin: 0 auto 2rem;
+    line-height: 1.8;
+  }
+
+  .rh-anreise .rh-note {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    color: var(--dark);
+    background: var(--warm-white);
+    border-left: 3px solid var(--gold-light);
+    border-radius: 4px;
+    padding: 1rem 1.3rem;
+    margin: 0 0 1.8rem;
+    line-height: 1.7;
+  }
+
+  .rh-anreise .rh-note strong { color: var(--gold); font-weight: 600; }
+
+  .rh-anreise .rh-start-picker {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .rh-anreise .rh-start-btn {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--slate);
+    background: var(--warm-white);
+    border: 1px solid rgba(184,151,106,0.4);
+    border-radius: 999px;
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .rh-anreise .rh-start-btn:hover {
+    border-color: var(--gold);
+    color: var(--dark);
+  }
+
+  .rh-anreise .rh-start-btn[aria-pressed="true"] {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #fff;
+  }
+
+  .rh-anreise .rh-custom-row {
+    display: none;
+    gap: 0.6rem;
+    justify-content: center;
+    margin: 0 0 1.2rem;
+  }
+
+  .rh-anreise .rh-custom-row.rh-visible {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .rh-anreise .rh-custom-row input[type="text"] {
+    flex: 1 1 220px;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.9rem;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid rgba(184,151,106,0.4);
+    background: #fff;
+    color: var(--dark);
+  }
+
+  .rh-anreise .rh-custom-row button {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #fff;
+    background: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 0.7rem 1.3rem;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .rh-anreise .rh-custom-row button:hover { background: #a07d52; border-color: #a07d52; }
+
+  .rh-anreise .rh-map {
+    border: 1px solid rgba(184,151,106,0.3);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 12px 30px -18px rgba(44,44,40,0.35);
+  }
+
+  .rh-anreise .rh-map iframe {
+    display: block;
+    width: 100%;
+    height: 400px;
+    border: 0;
+  }
+
+  .rh-anreise .rh-map-fallback {
+    display: flex;
+    justify-content: center;
+    margin: 0.8rem 0 0;
+  }
+
+  .rh-anreise .rh-map-fallback a {
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid transparent;
+  }
+
+  .rh-anreise .rh-map-fallback a:hover { border-bottom-color: var(--gold); }
+
+  .rh-anreise .rh-divider {
+    border: none;
+    border-top: 1px solid rgba(184,151,106,0.3);
+    margin: 2.5rem 0 2rem;
+  }
+
+  .rh-anreise .rh-section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--slate);
+    font-weight: 500;
+    text-align: center;
+    margin: 0 0 1.2rem;
+  }
+
+  .rh-anreise .rh-blitzer-group + .rh-blitzer-group { margin-top: 1.3rem; }
+
+  .rh-anreise .rh-blitzer-group-title {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin: 0 0 0.7rem;
+  }
+
+  .rh-anreise .rh-blitzer-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
+
+  .rh-anreise .rh-blitzer-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    background: var(--warm-white);
+    border: 1px solid rgba(184,151,106,0.3);
+    padding: 0.75rem 1rem;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.85rem;
+    color: var(--dark);
+  }
+
+  .rh-anreise .rh-blitzer-label { display: flex; align-items: baseline; gap: 0.5rem; }
+
+  .rh-anreise .rh-blitzer-label::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex: none;
+  }
+
+  .rh-anreise .rh-blitzer-list a {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--gold);
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 1px solid transparent;
+  }
+
+  .rh-anreise .rh-blitzer-list a:hover { border-bottom-color: var(--gold); }
+
+  .rh-anreise .rh-footnote {
+    margin-top: 2.2rem;
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--slate);
+  }
+
+  @media (max-width: 480px) {
+    .rh-anreise .rh-blitzer-list li { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+  }
+</style>
+
+<section class="anreise-section" style="background: var(--cream); padding: 5rem 2rem; display:flex; flex-direction:column; align-items:center; overflow:hidden;">
+  <p class="section-label">Anreise</p>
+
+  <div class="rh-anreise">
+    <p class="rh-lede">
+      Zum Dorfgemeinschaftshaus, Hauptstra&szlig;e&nbsp;16, 35108 Allendorf (Eder).
+    </p>
+
+    <p class="rh-note">
+      <strong>Tipp:</strong> Ab Bochum-Harpen gibt es zwei gute Optionen &ndash; die Route &uuml;ber die
+      <strong>A46 und Winterberg</strong>, oder die Route &uuml;ber die <strong>A44 und die B252</strong>
+      (etwas l&auml;nger, aber deutlich entspannter zu fahren). Die von Google oft als &bdquo;schnellste Strecke&ldquo;
+      vorgeschlagene Route &uuml;ber die <strong>A45</strong> ist dagegen <strong>nicht zu empfehlen</strong>.
+    </p>
+
+    <div class="rh-start-picker" id="rhStartPicker" role="tablist" aria-label="Startpunkt w&auml;hlen"></div>
+
+    <div class="rh-custom-row" id="rhCustomRow">
+      <input type="text" id="rhCustomInput" placeholder="Eure Adresse, z. B. Musterstra&szlig;e 1, Musterstadt" />
+      <button type="button" id="rhCustomGo">Route anzeigen</button>
+    </div>
+
+    <div class="rh-map">
+      <iframe
+        id="rhMapFrame"
+        src="https://maps.google.com/maps?saddr=Bochum-Harpen%2C%2044805%20Bochum%2C%20Deutschland&daddr=Winterberg%2C%20Deutschland+to:DGH%20Rennertehausen%2C%20Hauptstra%C3%9Fe%2016%2C%2035108%20Allendorf%20(Eder)&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <div class="rh-map-fallback">
+      <a id="rhMapFallback" href="https://www.google.com/maps/dir/?api=1&origin=Bochum-Harpen%2C%2044805%20Bochum%2C%20Deutschland&destination=DGH%20Rennertehausen%2C%20Hauptstra%C3%9Fe%2016%2C%2035108%20Allendorf%20(Eder)&waypoints=Winterberg%2C%20Deutschland&travelmode=driving" target="_blank" rel="noopener">In Google Maps &ouml;ffnen &#8599;</a>
+    </div>
+
+    <hr class="rh-divider" />
+
+    <div class="rh-section-label">Blitzer auf der Strecke</div>
+
+    <div class="rh-blitzer-group">
+      <p class="rh-blitzer-group-title">Blitzer bei der Strecke &uuml;ber die A46 &amp; Winterberg:</p>
+      <ul class="rh-blitzer-list">
+        <li>
+          <span class="rh-blitzer-label">Dortmund &middot; 51.49763, 7.45335</span>
+          <a href="https://www.google.com/maps/search/?api=1&query=51.497633,7.453352" target="_blank" rel="noopener">Auf Karte ansehen &#8599;</a>
+        </li>
+        <li>
+          <span class="rh-blitzer-label">Winterberg &middot; 51.15540, 8.55921</span>
+          <a href="https://www.google.com/maps/search/?api=1&query=51.155400,8.559205" target="_blank" rel="noopener">Auf Karte ansehen &#8599;</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="rh-blitzer-group">
+      <p class="rh-blitzer-group-title">Blitzer bei der Strecke &uuml;ber die A44 &amp; B252:</p>
+      <ul class="rh-blitzer-list">
+        <li>
+          <span class="rh-blitzer-label">Dortmund &middot; 51.49763, 7.45335</span>
+          <a href="https://www.google.com/maps/search/?api=1&query=51.497633,7.453352" target="_blank" rel="noopener">Auf Karte ansehen &#8599;</a>
+        </li>
+        <li>
+          <span class="rh-blitzer-label">Twistetal (Berndorf) &middot; 51.30839, 8.90600</span>
+          <a href="https://www.google.com/maps/search/?api=1&query=51.30839,8.90600" target="_blank" rel="noopener">Auf Karte ansehen &#8599;</a>
+        </li>
+        <li>
+          <span class="rh-blitzer-label">Twistetal (Twiste) &middot; 51.33678, 8.96642</span>
+          <a href="https://www.google.com/maps/search/?api=1&query=51.33678,8.96642" target="_blank" rel="noopener">Auf Karte ansehen &#8599;</a>
+        </li>
+        <li>
+          <span class="rh-blitzer-label">V&ouml;hl &middot; 51.18644, 8.89489</span>
+          <a href="https://www.google.com/maps/search/?api=1&query=51.18644,8.89489" target="_blank" rel="noopener">Auf Karte ansehen &#8599;</a>
+        </li>
+      </ul>
+    </div>
+
+    <p class="rh-footnote">Gute Fahrt und bis bald! &#128663;</p>
+  </div>
+</section>
+
+<script>
+(function () {
+  var DEST = "DGH Rennertehausen, Hauptstraße 16, 35108 Allendorf (Eder)";
+  var BOCHUM = "Bochum-Harpen, 44805 Bochum, Deutschland";
+  var WAYPOINT = "Diemelstadt, Deutschland";
+  var WAYPOINT_WINTERBERG = "Winterberg, Deutschland";
+  // Winterberg wird bewusst als Wegpunkt erzwungen: Ohne diesen Umweg schlaegt Google
+  // von Bochum-Harpen aus oft die Route ueber die A45 vor - die ist nicht empfohlen und
+  // soll auf der Karte gar nicht erst auftauchen.
+
+  var picker = document.getElementById("rhStartPicker");
+  var customRow = document.getElementById("rhCustomRow");
+  var customInput = document.getElementById("rhCustomInput");
+  var customGo = document.getElementById("rhCustomGo");
+  var frame = document.getElementById("rhMapFrame");
+  var fallback = document.getElementById("rhMapFallback");
+
+  function embedUrl(origin, viaWaypoint) {
+    var daddr = viaWaypoint
+      ? encodeURIComponent(viaWaypoint) + "+to:" + encodeURIComponent(DEST)
+      : encodeURIComponent(DEST);
+    return "https://maps.google.com/maps?saddr=" + encodeURIComponent(origin) +
+      "&daddr=" + daddr + "&output=embed";
+  }
+
+  function dirUrl(origin, viaWaypoint) {
+    var url = "https://www.google.com/maps/dir/?api=1&origin=" + encodeURIComponent(origin) +
+      "&destination=" + encodeURIComponent(DEST) + "&travelmode=driving";
+    if (viaWaypoint) url += "&waypoints=" + encodeURIComponent(viaWaypoint);
+    return url;
+  }
+
+  function showRoute(origin, viaWaypoint) {
+    frame.src = embedUrl(origin, viaWaypoint);
+    fallback.href = dirUrl(origin, viaWaypoint);
+  }
+
+  var modes = [
+    { label: "Ab Bochum-Harpen · über A46 & Winterberg", custom: false, origin: BOCHUM, via: WAYPOINT_WINTERBERG },
+    { label: "Ab Bochum-Harpen · über A44 & B252", custom: false, origin: BOCHUM, via: WAYPOINT },
+    { label: "Eigener Startpunkt", custom: true }
+  ];
+
+  modes.forEach(function (mode, i) {
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "rh-start-btn";
+    btn.setAttribute("role", "tab");
+    btn.setAttribute("aria-pressed", "false");
+    btn.textContent = mode.label;
+    btn.addEventListener("click", function () {
+      Array.prototype.forEach.call(picker.querySelectorAll(".rh-start-btn"), function (b) {
+        b.setAttribute("aria-pressed", "false");
+      });
+      btn.setAttribute("aria-pressed", "true");
+
+      if (mode.custom) {
+        customRow.classList.add("rh-visible");
+        if (customInput.value.trim()) {
+          showRoute(customInput.value.trim(), null);
+        }
+      } else {
+        customRow.classList.remove("rh-visible");
+        showRoute(mode.origin, mode.via);
+      }
+    });
+    picker.appendChild(btn);
+    if (i === 0) btn.setAttribute("aria-pressed", "true");
+  });
+
+  function submitCustom() {
+    var val = customInput.value.trim();
+    if (val) showRoute(val, null);
+  }
+
+  customGo.addEventListener("click", submitCustom);
+  customInput.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      submitCustom();
+    }
+  });
+})();
+</script>
+
+
+<!-- FOTOS -->
+<section class="fotos-section" style="background:#6b6b5f; padding:5rem 2rem; display:flex; flex-direction:column; align-items:center; overflow:hidden;">
+  <p class="section-label" style="color:var(--gold-light);">Eure Fotos f&uuml;r uns</p>
+
+  <div style="width:min(560px, 90vw); font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:rgba(255,255,255,0.85); line-height:1.8;">
+
+    <p style="margin-bottom:1.4rem;">Wir w&uuml;rden uns riesig freuen, wenn ihr diesen besonderen Tag mit euren Augen und Kameras festhaltet! Ob spontane Schnappsch&uuml;sse, lustige Momente auf der Tanzfl&auml;che oder die kleinen Details, die uns vielleicht entgehen &ndash; jedes Foto ist f&uuml;r uns ein kostbares Erinnerungsst&uuml;ck.</p>
+
+    <p style="margin-bottom:1.4rem;">Damit wir am Ende m&ouml;glichst viele sch&ouml;ne Momente von euch bekommen, haben wir eine kleine Bitte an euch:</p>
+
+    <p style="margin-bottom:1.4rem;">Schickt uns eure Fotos bitte fr&uuml;hestens am Tag nach der Feier in bester Qualit&auml;t (HQ) &uuml;ber WhatsApp oder ladet sie &uuml;ber folgenden Link hoch:<br>
+      <a href="https://owncloud.redacion.eu/index.php/s/6tTQgJJfk8HRohp" style="color:var(--gold-light); word-break:break-all; text-decoration:none; border-bottom:1px solid rgba(212,184,150,0.4);" target="_blank" rel="noopener">https://owncloud.redacion.eu/index.php/s/6tTQgJJfk8HRohp</a>
+    </p>
+
+    <p style="margin-bottom:1.4rem;">So k&ouml;nnt ihr den Abend in vollen Z&uuml;gen genie&szlig;en, ohne euch Gedanken &uuml;bers Versenden machen zu m&uuml;ssen und wir bekommen im Anschluss alle eure wundersch&ouml;nen Aufnahmen als Erinnerung.</p>
+
+    <p style="margin-bottom:1.4rem;">Wir freuen uns riesig darauf, diesen Tag durch eure Augen noch einmal zu erleben!</p>
+
+    <p style="margin-bottom:0;">Wenn ihr m&ouml;gt, schreibt uns gerne noch ein paar Zeilen dazu &ndash; was euch besonders ber&uuml;hrt hat oder in Erinnerung geblieben ist, w&uuml;rde uns riesig freuen.</p>
+  </div>
+</section>
+
+<!-- TAXI -->
+<style>
+  .taxi-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background: var(--warm-white);
+    border: 1px solid rgba(184,151,106,0.35);
+    border-radius: 4px;
+    padding: 1rem 1.4rem;
+    text-decoration: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .taxi-card:hover {
+    border-color: var(--gold);
+    background: #fff;
+  }
+
+  .taxi-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    color: var(--dark);
+  }
+
+  .taxi-number {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+
+  .taxi-number svg { width: 14px; height: 14px; flex: none; }
+</style>
+
+<section class="taxi-section" style="background: var(--cream); padding: 5rem 2rem; display:flex; flex-direction:column; align-items:center;">
+  <p class="section-label">Taxi</p>
+
+  <p style="font-family:'Cormorant Garamond',serif; font-size:1.1rem; color:var(--slate); text-align:center; max-width:480px; line-height:1.8; margin-bottom:2.2rem;">
+    Kommt gut nach Hause &ndash; einfach antippen und direkt anrufen:
+  </p>
+
+  <div style="width:min(500px, 90vw); display:grid; gap:0.9rem;">
+
+    <a class="taxi-card" href="tel:+4964516464">
+      <span class="taxi-name">Taxi Bressler Frankenberg</span>
+      <span class="taxi-number">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2Z"/></svg>
+        06451 6464
+      </span>
+    </a>
+
+    <a class="taxi-card" href="tel:+4964517463556">
+      <span class="taxi-name">MINICAR</span>
+      <span class="taxi-number">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2Z"/></svg>
+        06451 7463556
+      </span>
+    </a>
+
+    <a class="taxi-card" href="tel:+49645126166">
+      <span class="taxi-name">Taxi Kunst</span>
+      <span class="taxi-number">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2Z"/></svg>
+        06451 26166
+      </span>
+    </a>
+
+    <a class="taxi-card" href="tel:+4964519777">
+      <span class="taxi-name">Taxi Udo Siebott</span>
+      <span class="taxi-number">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2Z"/></svg>
+        06451 9777
+      </span>
+    </a>
+
+  </div>
+</section>
 
 <!-- FOOTER -->
 <footer>
